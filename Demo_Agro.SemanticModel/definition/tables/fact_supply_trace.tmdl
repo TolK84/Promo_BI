@@ -1,0 +1,350 @@
+table fact_supply_trace
+	lineageTag: f46b6c0d-2f53-5d85-ad56-c2b2bdcb352a
+
+	column 'ID строки заказа'
+		dataType: int64
+		isHidden
+		lineageTag: 7e9707a2-0819-5e65-a88f-e4634389b7ad
+		summarizeBy: none
+		sourceColumn: ID строки заказа
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID заказа'
+		dataType: int64
+		isHidden
+		lineageTag: 4829acd5-7184-5fd2-bb96-a8c82ad2cf0b
+		summarizeBy: none
+		sourceColumn: ID заказа
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Дата заказа'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: da088ec0-d55d-5406-9b2a-68fe14076594
+		summarizeBy: none
+		sourceColumn: Дата заказа
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Год
+		dataType: int64
+		isHidden
+		lineageTag: a8971625-0458-5893-8068-d4df704ceaa5
+		summarizeBy: none
+		sourceColumn: Год
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID договора'
+		dataType: int64
+		isHidden
+		lineageTag: d869532e-e3e4-5134-8332-d2fa753d3b6c
+		summarizeBy: none
+		sourceColumn: ID договора
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Номер договора'
+		dataType: string
+		lineageTag: fb4332f7-20bb-5547-8d10-7c7743e1d35d
+		summarizeBy: none
+		sourceColumn: Номер договора
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID клиента'
+		dataType: int64
+		isHidden
+		lineageTag: eb0dbe2f-5d10-5e63-beb7-0a648c2ab0af
+		summarizeBy: none
+		sourceColumn: ID клиента
+
+		annotation SummarizationSetBy = Automatic
+
+	column Клиент
+		dataType: string
+		lineageTag: 519eaf00-d258-5ad1-814d-ccf6003b2c3f
+		summarizeBy: none
+		sourceColumn: Клиент
+
+		annotation SummarizationSetBy = Automatic
+
+	column Регион
+		dataType: string
+		lineageTag: 7ad1b64c-267c-59c5-ac8c-b47a18f7aa0e
+		summarizeBy: none
+		sourceColumn: Регион
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID менеджера'
+		dataType: int64
+		isHidden
+		lineageTag: e39953c2-ed1b-54e0-99a3-9ae3925951eb
+		summarizeBy: none
+		sourceColumn: ID менеджера
+
+		annotation SummarizationSetBy = Automatic
+
+	column Менеджер
+		dataType: string
+		lineageTag: 80137d85-1219-5775-8f84-9a8c8f10743a
+		summarizeBy: none
+		sourceColumn: Менеджер
+
+		annotation SummarizationSetBy = Automatic
+
+	column Подразделение
+		dataType: string
+		isHidden
+		lineageTag: 756282e0-2511-5dfc-b072-410e2bbc54fe
+		summarizeBy: none
+		sourceColumn: Подразделение
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID сезона'
+		dataType: int64
+		isHidden
+		lineageTag: a7ca3a29-8220-59da-9d05-979f5cd01baa
+		summarizeBy: none
+		sourceColumn: ID сезона
+
+		annotation SummarizationSetBy = Automatic
+
+	column Сезон
+		dataType: string
+		isHidden
+		lineageTag: a5b09e67-275b-55fa-aa87-7a7c8c75edf2
+		summarizeBy: none
+		sourceColumn: Сезон
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID товара'
+		dataType: int64
+		isHidden
+		lineageTag: cd0576ce-b71d-5b3a-8078-67cef4e7e316
+		summarizeBy: none
+		sourceColumn: ID товара
+
+		annotation SummarizationSetBy = Automatic
+
+	column Артикул
+		dataType: string
+		lineageTag: 3dd6c499-199d-5dbe-a66b-85af20d7794c
+		summarizeBy: none
+		sourceColumn: Артикул
+
+		annotation SummarizationSetBy = Automatic
+
+	column Товар
+		dataType: string
+		lineageTag: 256af998-816f-50d0-ab35-90ab8bfbd1d7
+		summarizeBy: none
+		sourceColumn: Товар
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Группа товаров'
+		dataType: string
+		lineageTag: 1aa67306-515c-5772-a7c6-6809d9c431d8
+		summarizeBy: none
+		sourceColumn: Группа товаров
+
+		annotation SummarizationSetBy = Automatic
+
+	column Производитель
+		dataType: string
+		lineageTag: abd09c70-ff6f-5e89-bd2c-5dc4575cbddd
+		summarizeBy: none
+		sourceColumn: Производитель
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ед. изм.'
+		dataType: string
+		lineageTag: 53adaaa7-6f30-53e4-bb8c-a2c43763f243
+		summarizeBy: none
+		sourceColumn: Ед. изм.
+
+		annotation SummarizationSetBy = Automatic
+
+	column Фасовка
+		dataType: string
+		lineageTag: dc67dcf6-b796-5764-be59-a65f916d47a5
+		summarizeBy: none
+		sourceColumn: Фасовка
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Товар (полное название)'
+		dataType: string
+		lineageTag: f1bf3e46-cca8-5bd8-be32-910569628afb
+		summarizeBy: none
+		sourceColumn: Товар (полное название)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Статус обеспечения'
+		dataType: string
+		lineageTag: 606159bc-56fa-5e7a-b21f-4c18c02b2a38
+		summarizeBy: none
+		sourceColumn: Статус обеспечения
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ближайшее поступление'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: 6e40fd08-a562-5ae8-b3f6-e595057cf311
+		summarizeBy: none
+		sourceColumn: Ближайшее поступление
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Кол-во по договору'
+		dataType: double
+		formatString: #,0
+		lineageTag: 7240c4f7-bd24-5ba4-9e78-ed0e18f77cb0
+		summarizeBy: sum
+		sourceColumn: Кол-во по договору
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Кол-во отгружено'
+		dataType: double
+		formatString: #,0
+		lineageTag: a4ea1a35-75b6-5688-97e9-16c0718e08c3
+		summarizeBy: sum
+		sourceColumn: Кол-во отгружено
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Кол-во к отгрузке'
+		dataType: double
+		formatString: #,0
+		lineageTag: 2b7d95f5-4915-591f-8547-df192637f2e5
+		summarizeBy: sum
+		sourceColumn: Кол-во к отгрузке
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Кол-во со склада'
+		dataType: double
+		formatString: #,0
+		lineageTag: 7bf04715-a2fe-5ce1-a9a5-490807c36e5b
+		summarizeBy: sum
+		sourceColumn: Кол-во со склада
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Кол-во из входящих'
+		dataType: double
+		formatString: #,0
+		lineageTag: 8cc7c3d9-e601-583a-b144-f7c6482e83c5
+		summarizeBy: sum
+		sourceColumn: Кол-во из входящих
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Кол-во дефицита'
+		dataType: double
+		formatString: #,0
+		lineageTag: 3c8a7344-3837-53ef-afaf-bac79d30f6e5
+		summarizeBy: sum
+		sourceColumn: Кол-во дефицита
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Сумма к отгрузке'
+		dataType: double
+		formatString: #,0
+		lineageTag: ff71ee5e-cbcc-5689-b5d1-73c74ae52f5d
+		summarizeBy: sum
+		sourceColumn: Сумма к отгрузке
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Сумма со склада'
+		dataType: double
+		formatString: #,0
+		lineageTag: 5c0d0103-0cec-5fe2-a5e1-3d0ace0a2cda
+		summarizeBy: sum
+		sourceColumn: Сумма со склада
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Сумма из входящих'
+		dataType: double
+		formatString: #,0
+		lineageTag: 787a498d-d89b-5361-b011-ab0ee1f3d6f1
+		summarizeBy: sum
+		sourceColumn: Сумма из входящих
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Сумма дефицита'
+		dataType: double
+		formatString: #,0
+		lineageTag: 82bd560e-b029-5bf0-bd8d-97d929f89af6
+		summarizeBy: sum
+		sourceColumn: Сумма дефицита
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Остаток товара на складе'
+		dataType: double
+		isHidden
+		formatString: #,0
+		lineageTag: 724a6f41-f6ec-555e-a9a2-14ec3c57f8d2
+		summarizeBy: none
+		sourceColumn: Остаток товара на складе
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Входящий объём по товару'
+		dataType: double
+		isHidden
+		formatString: #,0
+		lineageTag: 8f8ecc72-3ad4-5a7f-83db-da45ca45e913
+		summarizeBy: none
+		sourceColumn: Входящий объём по товару
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Исходящий объём по товару'
+		dataType: double
+		isHidden
+		formatString: #,0
+		lineageTag: e040b02d-06bc-5052-8dc6-a4372c8ea2f2
+		summarizeBy: none
+		sourceColumn: Исходящий объём по товару
+
+		annotation SummarizationSetBy = Automatic
+
+	column Цена
+		dataType: double
+		lineageTag: a0e5d723-6b10-461f-b20e-e7673bda00a7
+		summarizeBy: sum
+		sourceColumn: Цена
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_supply_trace = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "v_supply_trace"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"order_line_id", "ID строки заказа"}, {"order_id", "ID заказа"}, {"order_date", "Дата заказа"}, {"year", "Год"}, {"contract_id", "ID договора"}, {"contract_number", "Номер договора"}, {"customer_id", "ID клиента"}, {"customer_name", "Клиент"}, {"region", "Регион"}, {"manager_id", "ID менеджера"}, {"manager_name", "Менеджер"}, {"division_name", "Подразделение"}, {"season_id", "ID сезона"}, {"season_name", "Сезон"}, {"product_id", "ID товара"}, {"sku", "Артикул"}, {"product_name", "Товар"}, {"product_group", "Группа товаров"}, {"manufacturer", "Производитель"}, {"unit", "Ед. изм."}, {"pack", "Фасовка"}, {"product_label", "Товар (полное название)"}, {"supply_status", "Статус обеспечения"}, {"next_arrival", "Ближайшее поступление"}, {"contract_qty", "Кол-во по договору"}, {"shipped_qty", "Кол-во отгружено"}, {"remaining_qty", "Кол-во к отгрузке"}, {"from_stock_qty", "Кол-во со склада"}, {"from_incoming_qty", "Кол-во из входящих"}, {"shortage_qty", "Кол-во дефицита"}, {"remaining_amount", "Сумма к отгрузке"}, {"from_stock_amount", "Сумма со склада"}, {"from_incoming_amount", "Сумма из входящих"}, {"shortage_amount", "Сумма дефицита"}, {"product_stock_qty", "Остаток товара на складе"}, {"product_incoming_qty", "Входящий объём по товару"}, {"product_outgoing_qty", "Исходящий объём по товару"}, {"price", "Цена"}})
+				in
+				    Renamed

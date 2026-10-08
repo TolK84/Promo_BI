@@ -1,0 +1,40 @@
+{
+  "name": "Demo_Agro_Theme",
+  "dataColors": [
+    "#2F7BFF",
+    "#00A3FF",
+    "#2D386D",
+    "#7B61FF",
+    "#00C2A8",
+    "#00A3FF",
+    "#FFB020",
+    "#E56E1D",
+    "#5C97D2",
+    "#9AA5B1",
+    "#14B8A6",
+    "#475569"
+  ],
+  "foreground": "#111111",
+  "background": "#F3F3F3",
+  "tableAccent": "#2F7BFF",
+  "good": "#27A481",
+  "bad": "#E56E1D",
+  "neutral": "#2464B1",
+  "maximum": "#00A3FF",
+  "center": "#7B61FF",
+  "minimum": "#2D386D",
+  "textClasses": {
+    "label": {
+      "fontFace": "Arial"
+    },
+    "callout": {
+      "fontFace": "Arial"
+    },
+    "title": {
+      "fontFace": "Arial"
+    },
+    "header": {
+      "fontFace": "Arial"
+    }
+  }
+}

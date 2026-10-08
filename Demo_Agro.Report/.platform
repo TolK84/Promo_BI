@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Demo_Agro"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "cdcca330-7282-4ee3-b0d5-33fee00dde8a"
+  }
+}

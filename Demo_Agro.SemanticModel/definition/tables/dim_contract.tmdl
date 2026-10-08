@@ -1,0 +1,100 @@
+table dim_contract
+	lineageTag: e7846b7e-14c0-566e-bef5-9247563afc07
+
+	column 'ID договора'
+		dataType: int64
+		isHidden
+		lineageTag: 246e5ead-bc0b-5573-a057-217b6acfda9f
+		summarizeBy: none
+		sourceColumn: ID договора
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Номер договора'
+		dataType: string
+		lineageTag: ed5ffb49-486f-553d-811c-64405d2887d1
+		summarizeBy: none
+		sourceColumn: Номер договора
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID клиента'
+		dataType: int64
+		isHidden
+		lineageTag: 7a2e868f-f70d-54ad-8368-5f06a2a61b07
+		summarizeBy: none
+		sourceColumn: ID клиента
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID менеджера'
+		dataType: int64
+		isHidden
+		lineageTag: 83a01308-a8ed-51cf-83a2-971439bb2eaf
+		summarizeBy: none
+		sourceColumn: ID менеджера
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID сезона'
+		dataType: int64
+		isHidden
+		lineageTag: 1a5e8028-c7e7-5fa2-9672-58992f2ff906
+		summarizeBy: none
+		sourceColumn: ID сезона
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Дата договора'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: a1dda537-7c1c-586d-83a6-cb29639fb8c2
+		summarizeBy: none
+		sourceColumn: Дата договора
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Сумма договора'
+		dataType: double
+		formatString: #,0
+		lineageTag: c524e418-4724-5770-9fe9-fda35dd1a3aa
+		summarizeBy: sum
+		sourceColumn: Сумма договора
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Тип подписания'
+		dataType: string
+		lineageTag: 7734c104-29d6-59f0-a8dc-4bbf5595be3f
+		summarizeBy: none
+		sourceColumn: Тип подписания
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Оригинал получен'
+		dataType: boolean
+		lineageTag: 19fa57d4-af7c-50c7-b388-b5164e3f0eff
+		summarizeBy: none
+		sourceColumn: Оригинал получен
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Статус договора'
+		dataType: string
+		lineageTag: 17cfe0ae-ee43-59ef-af6a-f36b3e8bfd92
+		summarizeBy: none
+		sourceColumn: Статус договора
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_contract = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "dim_contract"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"contract_id", "ID договора"}, {"number", "Номер договора"}, {"customer_id", "ID клиента"}, {"manager_id", "ID менеджера"}, {"season_id", "ID сезона"}, {"contract_date", "Дата договора"}, {"amount", "Сумма договора"}, {"sign_type", "Тип подписания"}, {"original_received", "Оригинал получен"}, {"status", "Статус договора"}})
+				in
+				    Renamed

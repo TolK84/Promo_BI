@@ -1,0 +1,145 @@
+table fact_order_line
+	lineageTag: 462a8340-84e3-5812-8135-1ddbae7c77a0
+
+	column 'ID строки заказа'
+		dataType: int64
+		isHidden
+		lineageTag: f9306703-38a7-50bd-b72a-7f11ae880c12
+		summarizeBy: none
+		sourceColumn: ID строки заказа
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID заказа'
+		dataType: int64
+		isHidden
+		lineageTag: a1b5326c-d0b4-5a7a-b010-ff59a6974d1f
+		summarizeBy: none
+		sourceColumn: ID заказа
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Дата заказа'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: 7abea8df-22b7-5c6f-b4b6-e4bd60065dd6
+		summarizeBy: none
+		sourceColumn: Дата заказа
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'ID договора'
+		dataType: int64
+		isHidden
+		lineageTag: cc8c71af-0024-5b48-8419-3255d4daf2d1
+		summarizeBy: none
+		sourceColumn: ID договора
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID клиента'
+		dataType: int64
+		isHidden
+		lineageTag: e9f6c554-538a-56ae-a1a5-543bcdc8e54d
+		summarizeBy: none
+		sourceColumn: ID клиента
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID менеджера'
+		dataType: int64
+		isHidden
+		lineageTag: 0c3fbeee-8bee-580a-9791-e6c2f2746295
+		summarizeBy: none
+		sourceColumn: ID менеджера
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID сезона'
+		dataType: int64
+		isHidden
+		lineageTag: 5a943f9b-c904-5185-83b9-cfb4817624dc
+		summarizeBy: none
+		sourceColumn: ID сезона
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID товара'
+		dataType: int64
+		isHidden
+		lineageTag: 5253c5d1-0ae7-55c1-a29a-7ec8744ee22f
+		summarizeBy: none
+		sourceColumn: ID товара
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID склада'
+		dataType: int64
+		isHidden
+		lineageTag: fc38a972-825b-5174-8691-bef36e21657f
+		summarizeBy: none
+		sourceColumn: ID склада
+
+		annotation SummarizationSetBy = Automatic
+
+	column Количество
+		dataType: double
+		formatString: #,0
+		lineageTag: cea44ef0-870a-5dcb-b6c1-bd097225af01
+		summarizeBy: sum
+		sourceColumn: Количество
+
+		annotation SummarizationSetBy = Automatic
+
+	column Цена
+		dataType: double
+		formatString: #,0
+		lineageTag: 50342271-9d23-55cc-b8b7-a2739a5e8461
+		summarizeBy: none
+		sourceColumn: Цена
+
+		annotation SummarizationSetBy = Automatic
+
+	column Сумма
+		dataType: double
+		formatString: #,0
+		lineageTag: cbf10c14-ca12-5d58-802c-f79c1f015301
+		summarizeBy: sum
+		sourceColumn: Сумма
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Кол-во отгружено' = CALCULATE(SUM(fact_sales_line[Количество]), FILTER(ALL(fact_sales_line), fact_sales_line[ID строки заказа] = fact_order_line[ID строки заказа]))
+		dataType: double
+		formatString: #,0
+		lineageTag: 29a9b96d-9cf8-5969-a455-586d70483419
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Кол-во к отгрузке' = [Количество] - [Кол-во отгружено]
+		dataType: double
+		formatString: #,0
+		lineageTag: f8c0efaa-3d72-5fe0-ad27-f036fc0d0ba6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Статус отгрузки' = SWITCH(TRUE(), [Кол-во отгружено] = 0, "Не отгружен", [Кол-во отгружено] < [Количество], "Частично отгружен", "Отгружен")
+		dataType: string
+		lineageTag: 039598a3-04ab-51c1-a439-c9a34d00ddb9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_order_line = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "fact_order_line"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"order_line_id", "ID строки заказа"}, {"order_id", "ID заказа"}, {"order_date", "Дата заказа"}, {"contract_id", "ID договора"}, {"customer_id", "ID клиента"}, {"manager_id", "ID менеджера"}, {"season_id", "ID сезона"}, {"product_id", "ID товара"}, {"warehouse_id", "ID склада"}, {"qty", "Количество"}, {"price", "Цена"}, {"amount", "Сумма"}})
+				in
+				    Renamed

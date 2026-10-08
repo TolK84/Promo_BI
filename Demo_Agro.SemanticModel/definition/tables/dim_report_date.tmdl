@@ -1,0 +1,23 @@
+table dim_report_date
+	lineageTag: 5628534b-091d-5897-ace3-30d4f6a5486d
+
+	column 'Дата отчёта'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: 3bad3416-9725-5b9c-81b7-fc91ec5a4f13
+		summarizeBy: none
+		sourceColumn: Дата отчёта
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dim_report_date = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "dim_report_date"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"report_date", "Дата отчёта"}})
+				in
+				    Renamed

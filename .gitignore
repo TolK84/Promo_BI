@@ -1,0 +1,5 @@
+_trash/
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.abf
+__pycache__/

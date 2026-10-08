@@ -1,0 +1,29 @@
+table dim_division
+	lineageTag: 900fe1d7-ea28-57c6-a515-f7c08dd720ef
+
+	column 'ID подразделения'
+		dataType: int64
+		isHidden
+		lineageTag: fcfb44e0-004e-55bf-b931-e26d5e37e5ff
+		summarizeBy: none
+		sourceColumn: ID подразделения
+
+		annotation SummarizationSetBy = Automatic
+
+	column Подразделение
+		dataType: string
+		lineageTag: b727094b-db4e-54cd-bbc9-07ccc6b42ea9
+		summarizeBy: none
+		sourceColumn: Подразделение
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_division = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "dim_division"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"division_id", "ID подразделения"}, {"name", "Подразделение"}})
+				in
+				    Renamed

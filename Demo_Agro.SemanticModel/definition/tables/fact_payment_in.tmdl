@@ -1,0 +1,67 @@
+table fact_payment_in
+	lineageTag: b64c8beb-6296-5c66-93bb-ff11fbbf6f58
+
+	column 'ID платежа'
+		dataType: int64
+		isHidden
+		lineageTag: 10390d20-1cf1-5784-a4bd-097d7cd4e1a7
+		summarizeBy: none
+		sourceColumn: ID платежа
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Дата платежа'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: 85d96f3e-3f91-5d44-a538-fbbb4480c6c8
+		summarizeBy: none
+		sourceColumn: Дата платежа
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'ID клиента'
+		dataType: int64
+		isHidden
+		lineageTag: c692b4dc-60cf-5110-8bc1-492a21016a74
+		summarizeBy: none
+		sourceColumn: ID клиента
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID договора'
+		dataType: int64
+		isHidden
+		lineageTag: 3154d2d1-55b3-5544-be1d-0e214e56646d
+		summarizeBy: none
+		sourceColumn: ID договора
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Сумма оплаты'
+		dataType: double
+		formatString: #,0
+		lineageTag: 7e4b8071-c3c1-5d5d-9004-47904259aa63
+		summarizeBy: sum
+		sourceColumn: Сумма оплаты
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Назначение платежа'
+		dataType: string
+		lineageTag: 2d0916a7-1ef4-5b87-a2dc-72c776ea4605
+		summarizeBy: none
+		sourceColumn: Назначение платежа
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_payment_in = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "fact_payment_in"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"payment_id", "ID платежа"}, {"payment_date", "Дата платежа"}, {"customer_id", "ID клиента"}, {"contract_id", "ID договора"}, {"amount", "Сумма оплаты"}, {"purpose", "Назначение платежа"}})
+				in
+				    Renamed

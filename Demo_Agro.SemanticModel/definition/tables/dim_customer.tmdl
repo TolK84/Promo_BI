@@ -1,0 +1,46 @@
+table dim_customer
+	lineageTag: 6b2185e8-fac5-5409-bf5a-502993b1a84c
+
+	column 'ID клиента'
+		dataType: int64
+		isHidden
+		lineageTag: 85589684-8869-5081-acc2-27fe68292de8
+		summarizeBy: none
+		sourceColumn: ID клиента
+
+		annotation SummarizationSetBy = Automatic
+
+	column Клиент
+		dataType: string
+		lineageTag: 52405f87-5cd7-5f00-8ced-7be7c4e5ecae
+		summarizeBy: none
+		sourceColumn: Клиент
+
+		annotation SummarizationSetBy = Automatic
+
+	column Регион
+		dataType: string
+		lineageTag: 5cfa554a-1409-5673-b848-757fed775517
+		summarizeBy: none
+		sourceColumn: Регион
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID менеджера'
+		dataType: int64
+		isHidden
+		lineageTag: ef91bb4d-7b1f-5a9f-98ec-14659d2a8bd9
+		summarizeBy: none
+		sourceColumn: ID менеджера
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "dim_customer"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"customer_id", "ID клиента"}, {"name", "Клиент"}, {"region", "Регион"}, {"manager_id", "ID менеджера"}})
+				in
+				    Renamed

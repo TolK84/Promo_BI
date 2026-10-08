@@ -1,0 +1,38 @@
+table dim_season
+	lineageTag: 9d8a9abc-5eb4-5a26-bb3c-a36f209f7e4e
+
+	column 'ID сезона'
+		dataType: int64
+		isHidden
+		lineageTag: 1e6d927d-4f14-55a1-9d86-597ceaac201c
+		summarizeBy: none
+		sourceColumn: ID сезона
+
+		annotation SummarizationSetBy = Automatic
+
+	column Сезон
+		dataType: string
+		lineageTag: 6b7c00cb-7e78-5da5-940c-5f5edbe1862d
+		summarizeBy: none
+		sourceColumn: Сезон
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Год сезона'
+		dataType: int64
+		isHidden
+		lineageTag: e297510e-99fa-5eb6-8f0d-863173f8770c
+		summarizeBy: none
+		sourceColumn: Год сезона
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_season = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "dim_season"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"season_id", "ID сезона"}, {"name", "Сезон"}, {"year", "Год сезона"}})
+				in
+				    Renamed

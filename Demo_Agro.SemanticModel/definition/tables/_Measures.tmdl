@@ -1,0 +1,245 @@
+table _Measures
+	excludeFromModelRefresh
+	lineageTag: 5385cbc0-4d2e-50ce-a8a6-13454aec295e
+
+	measure Выручка = SUM(fact_sales_line[Сумма])
+		formatString: #,0
+		displayFolder: Продажи
+		lineageTag: 32d9bcc7-3381-5946-983e-becf4feeac44
+
+	measure Себестоимость = SUM(fact_sales_line[Себестоимость])
+		formatString: #,0
+		displayFolder: Продажи
+		lineageTag: 52ffd1ae-0a2b-5e7f-be17-6667c34d093d
+
+	measure Маржа = [Выручка] - [Себестоимость]
+		formatString: #,0
+		displayFolder: Продажи
+		lineageTag: aa90fddc-2d71-5486-8a67-39647da177a5
+
+	measure 'Маржа %' = DIVIDE([Маржа], [Выручка])
+		formatString: 0.0%
+		displayFolder: Продажи
+		lineageTag: 0ca66178-64f1-5c1e-b9a8-341f098d38e8
+
+	measure 'Отгружено, кол-во' = SUM(fact_sales_line[Количество])
+		formatString: #,0
+		displayFolder: Продажи
+		lineageTag: 93d74508-359f-52c7-943a-537862468210
+
+	measure 'Заказано, сумма' = SUM(fact_order_line[Сумма])
+		formatString: #,0
+		displayFolder: Заказы
+		lineageTag: d5b57dd3-6e66-5efa-a382-8c5307293450
+
+	measure 'Строк заказов' = COUNTROWS(fact_order_line)
+		formatString: #,0
+		displayFolder: Заказы
+		lineageTag: 23d90f3f-8da3-5630-bfc8-0a7fd84e1b0b
+
+	measure 'Остаток к отгрузке, кол-во' = SUM(fact_order_line[Кол-во к отгрузке])
+		formatString: #,0
+		displayFolder: Заказы
+		lineageTag: 1372d8d9-397f-53d7-b99f-77ffa55280da
+
+	measure 'Сумма договоров' = SUM(dim_contract[Сумма договора])
+		formatString: #,0
+		displayFolder: Договоры
+		lineageTag: b3e29bcd-6d75-5ef0-bea8-d5f646999661
+
+	measure Договоров = DISTINCTCOUNT(dim_contract[ID договора])
+		formatString: 0
+		displayFolder: Договоры
+		lineageTag: 61cd8313-899c-5b43-bf11-f1c59b247d1d
+
+	measure 'Оплачено клиентами' = SUM(fact_payment_in[Сумма оплаты])
+		formatString: #,0
+		displayFolder: Оплаты
+		lineageTag: dd3db876-ddd4-5c7c-b68e-df0eb157442c
+
+	measure Предоплаты = CALCULATE([Оплачено клиентами], fact_payment_in[Назначение платежа] = "Предоплата")
+		formatString: #,0
+		displayFolder: Оплаты
+		lineageTag: 86a05d55-8063-5a22-8094-2592651d6a09
+
+	measure 'План оплат' = SUM(fact_payment_schedule[Плановая сумма])
+		formatString: #,0
+		displayFolder: Оплаты
+		lineageTag: 7526cf4d-a5a7-577d-bc62-e31d91102d42
+
+	measure 'Оплачено по графику' = SUM(fact_payment_schedule[Оплачено])
+		formatString: #,0
+		displayFolder: Оплаты
+		lineageTag: 397e764a-93ce-5d47-b9d0-1c541fe548c5
+
+	measure 'Не оплачено по графику' = SUM(fact_payment_schedule[Не оплачено])
+		formatString: #,0
+		displayFolder: Оплаты
+		lineageTag: fbcd1364-592a-5737-8351-ef5e770a88e4
+
+	measure 'Просроченная задолженность' = SUM(fact_payment_schedule[Просрочено])
+		formatString: #,0
+		displayFolder: Оплаты
+		lineageTag: 8d30b699-12f8-5782-9837-175b50ed43d2
+
+	measure 'Выполнение графика %' = DIVIDE([Оплачено по графику], [План оплат])
+		formatString: 0.0%
+		displayFolder: Оплаты
+		lineageTag: 3cee0e93-8f1b-5b67-9472-3d0def4044f2
+
+	measure 'Отгружено нарастающим' =
+			VAR vAsOf = MIN(MAX(dim_date[Дата]), [Дата формирования])
+			RETURN
+			CALCULATE(SUM(fact_sales_line[Сумма]), REMOVEFILTERS(dim_date), dim_date[Дата] <= vAsOf)
+		formatString: #,0
+		displayFolder: Дебиторка
+		lineageTag: 46006bc1-bfac-55dd-9b85-d37173d7cc3d
+
+	measure 'Оплачено нарастающим' =
+			VAR vAsOf = MIN(MAX(dim_date[Дата]), [Дата формирования])
+			RETURN
+			CALCULATE(SUM(fact_payment_in[Сумма оплаты]), REMOVEFILTERS(dim_date), dim_date[Дата] <= vAsOf)
+		formatString: #,0
+		displayFolder: Дебиторка
+		lineageTag: 540c7061-f26e-510f-aabd-218ed01fc7bf
+
+	measure 'Сальдо расчётов' = [Отгружено нарастающим] - [Оплачено нарастающим]
+		formatString: #,0
+		displayFolder: Дебиторка
+		lineageTag: a82bd0ae-ae1c-51a9-ac72-b9ea1df8099e
+
+	measure 'Дебиторская задолженность' = SUMX(VALUES(dim_contract[ID договора]), MAX(0, [Сальдо расчётов]))
+		formatString: #,0
+		displayFolder: Дебиторка
+		lineageTag: 9fabcf6b-cb18-59fe-a3cc-5b2ccf9f4ce1
+
+	measure 'Остаток предоплаты' = SUMX(VALUES(dim_contract[ID договора]), MAX(0, -[Сальдо расчётов]))
+		formatString: #,0
+		displayFolder: Дебиторка
+		lineageTag: 08c6bad2-d141-54d9-a19e-0ad46b2390c8
+
+	measure 'Закуплено, сумма' = SUM(fact_purchase_line[Сумма])
+		formatString: #,0
+		displayFolder: Закупки
+		lineageTag: 7cd2c157-be26-50e6-abb0-2fef4925fd58
+
+	measure 'Закуплено, кол-во' = SUM(fact_purchase_line[Количество])
+		formatString: #,0
+		displayFolder: Закупки
+		lineageTag: 48298d6a-389f-52c1-b188-abf71130a007
+
+	measure 'Оплачено поставщикам' = SUM(fact_payment_out[Сумма оплаты])
+		formatString: #,0
+		displayFolder: Закупки
+		lineageTag: efb54f62-e173-5055-8d9d-375476c702f0
+
+	measure 'Закуплено нарастающим' =
+			VAR vAsOf = MIN(MAX(dim_date[Дата]), [Дата формирования])
+			RETURN
+			CALCULATE(SUM(fact_purchase_line[Сумма]), REMOVEFILTERS(dim_date), dim_date[Дата] <= vAsOf)
+		formatString: #,0
+		displayFolder: Закупки
+		lineageTag: b8e5decf-18f5-5329-a6f0-1dec03fd2471
+
+	measure 'Оплачено поставщикам нарастающим' =
+			VAR vAsOf = MIN(MAX(dim_date[Дата]), [Дата формирования])
+			RETURN
+			CALCULATE(SUM(fact_payment_out[Сумма оплаты]), REMOVEFILTERS(dim_date), dim_date[Дата] <= vAsOf)
+		formatString: #,0
+		displayFolder: Закупки
+		lineageTag: eef59e94-8bcb-57c3-96ba-65c72bdd1ddd
+
+	measure 'Долг перед поставщиками' = [Закуплено нарастающим] - [Оплачено поставщикам нарастающим]
+		formatString: #,0
+		displayFolder: Закупки
+		lineageTag: 697208da-78c7-50f5-a1d0-8baec4afc2d5
+
+	measure 'План продаж' = SUM(fact_sales_plan[Плановая сумма])
+		formatString: #,0
+		displayFolder: План
+		lineageTag: 8cd56603-0be6-57b0-a7b6-883569782fe0
+
+	measure 'План, кол-во' = SUM(fact_sales_plan[Плановое кол-во])
+		formatString: #,0
+		displayFolder: План
+		lineageTag: da910338-f4c4-5f87-9f17-73fb04717054
+
+	measure 'Отклонение от плана' = [Выручка] - [План продаж]
+		formatString: #,0
+		displayFolder: План
+		lineageTag: d62074c6-7f78-5bcd-b598-6cc5b49c7f08
+
+	measure 'Выполнение плана %' = DIVIDE([Выручка], [План продаж])
+		formatString: 0.0%
+		displayFolder: План
+		lineageTag: de664813-1e15-5f0b-98b2-2e1475ec3829
+
+	measure 'Заказано у поставщиков, сумма' = SUM(fact_supplier_order_line[Сумма])
+		formatString: #,0
+		displayFolder: Закупки
+		lineageTag: 07367595-c034-573f-b112-68db49ab6f40
+
+	measure 'К реализации' = SUM(fact_supply_trace[Сумма к отгрузке])
+		formatString: #,0
+		displayFolder: Обеспечение
+		lineageTag: 749fc290-6fac-5103-bb9d-980c2db6e712
+
+	measure 'Ждёт поставки от поставщика' = SUM(fact_supply_trace[Сумма из входящих])
+		formatString: #,0
+		displayFolder: Обеспечение
+		lineageTag: b99744c3-ae2b-52e2-a9a5-88664f4dbecf
+
+	measure 'Дефицит: не обеспечено даже заказанным' = SUM(fact_supply_trace[Сумма дефицита])
+		formatString: #,0
+		displayFolder: Обеспечение
+		lineageTag: 9fadf461-8d6d-5841-b480-d4610050672f
+
+	measure 'По договору' = SUM(fact_supply_trace[Кол-во по договору])
+		formatString: #,0
+		displayFolder: Обеспечение
+		lineageTag: 4276d9a9-55f3-5e38-a4af-8393ec1753b2
+
+	measure Отгружено = SUM(fact_supply_trace[Кол-во отгружено])
+		formatString: #,0
+		displayFolder: Обеспечение
+		lineageTag: 9fdf4eed-756a-5a2f-94ae-202751ed526d
+
+	measure 'В заказе исходящем (к реализации)' = SUM(fact_supply_trace[Кол-во к отгрузке])
+		formatString: #,0
+		displayFolder: Обеспечение
+		lineageTag: f59fff9c-2a12-5e39-882a-ddf49c64bc98
+
+	measure 'На складе' = SUM(fact_supply_trace[Кол-во со склада])
+		formatString: #,0
+		displayFolder: Обеспечение
+		lineageTag: 9e0f5bf0-5595-533d-ac1c-d0fe54f99475
+
+	measure 'В заказе входящем' = SUM(fact_supply_trace[Кол-во из входящих])
+		formatString: #,0
+		displayFolder: Обеспечение
+		lineageTag: 6b4ef7c4-43de-54ad-9b8a-427a315ea160
+
+	measure 'Не хватает' = SUM(fact_supply_trace[Кол-во дефицита])
+		formatString: #,0
+		displayFolder: Обеспечение
+		lineageTag: 0de16f86-aae3-591c-914a-1ec0311c3c69
+
+	measure 'Цвет строки (обеспечение)' = SWITCH(TRUE(), SUM(fact_supply_trace[Кол-во дефицита]) > 0, "#F4A6A6", SUM(fact_supply_trace[Кол-во из входящих]) > 0, "#FFE27A", BLANK())
+		isHidden
+		displayFolder: Служебные
+		lineageTag: f99ca3ef-1d62-5db2-9655-85e0f7055ee1
+
+	measure 'Дата формирования' = MAX(dim_report_date[Дата отчёта])
+		formatString: dd.mm.yyyy
+		displayFolder: Служебные
+		lineageTag: ea271f3a-b84b-5b54-b197-a0db96a15b7f
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Column1 = text], {}),
+				    #"Removed Columns" = Table.RemoveColumns(Source, {"Column1"})
+				in
+				    #"Removed Columns"
+

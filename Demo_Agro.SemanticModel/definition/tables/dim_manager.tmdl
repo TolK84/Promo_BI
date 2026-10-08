@@ -1,0 +1,38 @@
+table dim_manager
+	lineageTag: 2eb3df9a-1711-5c00-a9a1-ea1f124be620
+
+	column 'ID менеджера'
+		dataType: int64
+		isHidden
+		lineageTag: 30dc7e96-ea2e-53a4-afa7-08e61cefc7a3
+		summarizeBy: none
+		sourceColumn: ID менеджера
+
+		annotation SummarizationSetBy = Automatic
+
+	column Менеджер
+		dataType: string
+		lineageTag: 9eecd33e-54ee-52fd-9018-e13239f72c3f
+		summarizeBy: none
+		sourceColumn: Менеджер
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID подразделения'
+		dataType: int64
+		isHidden
+		lineageTag: 5780ef5c-5953-5744-b3e3-6c8a7e80e13c
+		summarizeBy: none
+		sourceColumn: ID подразделения
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_manager = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "dim_manager"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"manager_id", "ID менеджера"}, {"name", "Менеджер"}, {"division_id", "ID подразделения"}})
+				in
+				    Renamed

@@ -1,0 +1,86 @@
+table fact_purchase_line
+	lineageTag: d0d8e5c0-a933-5b66-b40f-13f08525ca4e
+
+	column 'ID строки закупки'
+		dataType: int64
+		isHidden
+		lineageTag: cbcfdcfe-132e-548a-b6bb-567977a89d66
+		summarizeBy: none
+		sourceColumn: ID строки закупки
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID закупки'
+		dataType: int64
+		isHidden
+		lineageTag: 7e733fbc-bc1a-50e3-99b5-efb1c0fe159c
+		summarizeBy: none
+		sourceColumn: ID закупки
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Дата закупки'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: c7f9949c-c725-526d-a040-8bcae294b7cb
+		summarizeBy: none
+		sourceColumn: Дата закупки
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'ID поставщика'
+		dataType: int64
+		isHidden
+		lineageTag: 13d47990-0134-58c1-a531-ab83ac04d837
+		summarizeBy: none
+		sourceColumn: ID поставщика
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID товара'
+		dataType: int64
+		isHidden
+		lineageTag: 696fd49c-65ec-5634-9f8d-ba46d141adc1
+		summarizeBy: none
+		sourceColumn: ID товара
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID склада'
+		dataType: int64
+		isHidden
+		lineageTag: 022d406a-b43b-5b8e-a5fc-cebf44a926ae
+		summarizeBy: none
+		sourceColumn: ID склада
+
+		annotation SummarizationSetBy = Automatic
+
+	column Количество
+		dataType: double
+		formatString: #,0
+		lineageTag: b405c663-3424-525a-9978-b8e3e90ff584
+		summarizeBy: sum
+		sourceColumn: Количество
+
+		annotation SummarizationSetBy = Automatic
+
+	column Сумма
+		dataType: double
+		formatString: #,0
+		lineageTag: c402450e-89db-51ed-88b9-32d605dca2eb
+		summarizeBy: sum
+		sourceColumn: Сумма
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_purchase_line = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "fact_purchase_line"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"purchase_line_id", "ID строки закупки"}, {"purchase_id", "ID закупки"}, {"purchase_date", "Дата закупки"}, {"supplier_id", "ID поставщика"}, {"product_id", "ID товара"}, {"warehouse_id", "ID склада"}, {"qty", "Количество"}, {"amount", "Сумма"}})
+				in
+				    Renamed

@@ -1,0 +1,93 @@
+table dim_date
+	lineageTag: 0258e878-389a-5417-ad1f-029009d1ad60
+	dataCategory: Time
+
+	column Дата
+		dataType: dateTime
+		isKey
+		formatString: dd.mm.yyyy
+		lineageTag: 4e737b95-6af8-53c3-9b00-00c8b49333a6
+		summarizeBy: none
+		sourceColumn: Дата
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Год
+		dataType: int64
+		formatString: 0
+		lineageTag: 51e4adfd-1e09-59b2-b3d3-725ac41d52f5
+		summarizeBy: none
+		sourceColumn: Год
+
+		annotation SummarizationSetBy = Automatic
+
+	column Квартал
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f25bcfc-a861-5173-b8eb-daa612177c34
+		summarizeBy: none
+		sourceColumn: Квартал
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Месяц №'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 78edc864-0758-5a75-acc0-2c4df4d80443
+		summarizeBy: none
+		sourceColumn: Месяц №
+
+		annotation SummarizationSetBy = Automatic
+
+	column Месяц
+		dataType: string
+		lineageTag: a8c5188f-271c-53ea-a557-50936beed8ca
+		summarizeBy: none
+		sourceColumn: Месяц
+		sortByColumn: 'Месяц №'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Начало месяца'
+		dataType: dateTime
+		formatString: mmm yyyy
+		lineageTag: fb16930a-f9f5-562c-b536-3252ea49a19a
+		summarizeBy: none
+		sourceColumn: Начало месяца
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Неделя
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b42deced-20ef-5cb0-930c-a91130718589
+		summarizeBy: none
+		sourceColumn: Неделя
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'День недели №'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7b077927-927e-5b05-a742-3fc179248f43
+		summarizeBy: none
+		sourceColumn: День недели №
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "dim_date"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"date_id", "Дата"}, {"year", "Год"}, {"quarter", "Квартал"}, {"month", "Месяц №"}, {"month_name", "Месяц"}, {"month_start", "Начало месяца"}, {"week", "Неделя"}, {"weekday", "День недели №"}})
+				in
+				    Renamed

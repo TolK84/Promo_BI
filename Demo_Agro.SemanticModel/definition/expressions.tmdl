@@ -1,0 +1,10 @@
+expression DbServer = "localhost:15432" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: 12ed0501-376b-5936-b6f4-55a1880bad2a
+
+	annotation PBI_ResultType = Text
+
+expression DbName = "demo_agro" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: c85fb1ac-642b-544d-8a9c-2e125cc98ca2
+
+	annotation PBI_ResultType = Text
+

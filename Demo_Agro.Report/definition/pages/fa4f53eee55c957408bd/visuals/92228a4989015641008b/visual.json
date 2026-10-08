@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "92228a4989015641008b",
+  "position": {
+    "x": 20.398406374501992,
+    "y": 168.28685258964143,
+    "z": 10000,
+    "height": 35.697211155378483,
+    "width": 1008.4462151394422,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Склад и входящие заказы распределяются между договорами по очереди заказов клиентов. Учитываются заказы текущего сезона.",
+                    "textStyle": {
+                      "fontFamily": "Arial",
+                      "fontSize": "8pt",
+                      "color": "#555555"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

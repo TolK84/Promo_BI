@@ -1,0 +1,37 @@
+table dim_supplier
+	lineageTag: 05584d77-47a6-56ea-b4dd-602fee837014
+
+	column 'ID поставщика'
+		dataType: int64
+		isHidden
+		lineageTag: c425a0c1-1077-557a-bf41-bb923ae907df
+		summarizeBy: none
+		sourceColumn: ID поставщика
+
+		annotation SummarizationSetBy = Automatic
+
+	column Поставщик
+		dataType: string
+		lineageTag: 3cdb2f50-4a68-5856-a58d-bbe0c8523a2a
+		summarizeBy: none
+		sourceColumn: Поставщик
+
+		annotation SummarizationSetBy = Automatic
+
+	column Страна
+		dataType: string
+		lineageTag: f3a48479-6fd9-582b-a58c-20a004c583dd
+		summarizeBy: none
+		sourceColumn: Страна
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_supplier = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "dim_supplier"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"supplier_id", "ID поставщика"}, {"name", "Поставщик"}, {"country", "Страна"}})
+				in
+				    Renamed

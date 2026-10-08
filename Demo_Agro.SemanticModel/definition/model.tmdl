@@ -1,0 +1,37 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: ru-RU
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["dim_date","dim_report_date","dim_season","dim_division","dim_manager","dim_customer","dim_supplier","dim_manufacturer","dim_product_group","dim_product","dim_warehouse","dim_contract","fact_order_line","fact_sales_line","fact_payment_schedule","fact_payment_in","fact_purchase_line","fact_payment_out","fact_sales_plan","fact_supplier_order_line","fact_supply_trace","_Measures","DbServer","DbName"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_date
+ref table dim_report_date
+ref table dim_season
+ref table dim_division
+ref table dim_manager
+ref table dim_customer
+ref table dim_supplier
+ref table dim_manufacturer
+ref table dim_product_group
+ref table dim_product
+ref table dim_warehouse
+ref table dim_contract
+ref table fact_order_line
+ref table fact_sales_line
+ref table fact_payment_schedule
+ref table fact_payment_in
+ref table fact_purchase_line
+ref table fact_payment_out
+ref table fact_sales_plan
+ref table fact_supplier_order_line
+ref table fact_supply_trace
+ref table _Measures
+

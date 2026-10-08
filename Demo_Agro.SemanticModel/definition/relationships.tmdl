@@ -1,0 +1,143 @@
+relationship a577abdb-9209-5a5b-ac53-538698a12535
+	fromColumn: fact_sales_line.'Дата продажи'
+	toColumn: dim_date.Дата
+
+relationship 30994d22-eae9-5ee1-a7ec-60f2e1429ab0
+	fromColumn: fact_sales_line.'ID договора'
+	toColumn: dim_contract.'ID договора'
+
+relationship ebd0b223-b394-57c0-8dc1-17254294b5e8
+	fromColumn: fact_sales_line.'ID товара'
+	toColumn: dim_product.'ID товара'
+
+relationship 607c37ef-7e59-5a1c-a539-18f0ea1de01a
+	fromColumn: fact_sales_line.'ID склада'
+	toColumn: dim_warehouse.'ID склада'
+
+relationship 21ef11de-c990-5697-b349-ac3226c43f8c
+	fromColumn: fact_order_line.'Дата заказа'
+	toColumn: dim_date.Дата
+
+relationship b90383a2-37a1-5245-a96f-780557db8116
+	fromColumn: fact_order_line.'ID договора'
+	toColumn: dim_contract.'ID договора'
+
+relationship b34df03a-e1cd-51b7-9f5d-f23fcf48c8e4
+	fromColumn: fact_order_line.'ID товара'
+	toColumn: dim_product.'ID товара'
+
+relationship 1abe1d7c-2750-53c6-9d5b-1b006aa7f3e8
+	fromColumn: fact_order_line.'ID склада'
+	toColumn: dim_warehouse.'ID склада'
+
+relationship 42b820b0-f8bf-5192-b35f-fff4db143c0a
+	fromColumn: fact_payment_schedule.'Срок оплаты'
+	toColumn: dim_date.Дата
+
+relationship 0ad516c6-32f6-51ca-974d-0ed013fa667c
+	fromColumn: fact_payment_schedule.'ID договора'
+	toColumn: dim_contract.'ID договора'
+
+relationship 1b9b9448-a097-5b96-b007-6d3fc8f9be73
+	fromColumn: fact_payment_in.'Дата платежа'
+	toColumn: dim_date.Дата
+
+relationship 0152126e-7dfc-5b36-9469-5329069831aa
+	fromColumn: fact_payment_in.'ID договора'
+	toColumn: dim_contract.'ID договора'
+
+relationship bb6ca1a3-62a6-555c-bf5a-7fdb9ba82954
+	fromColumn: fact_purchase_line.'Дата закупки'
+	toColumn: dim_date.Дата
+
+relationship 32cd8fec-36ce-5cd7-886c-086caf3f5761
+	fromColumn: fact_purchase_line.'ID поставщика'
+	toColumn: dim_supplier.'ID поставщика'
+
+relationship 1ef32829-8d11-5e3e-99fc-7c813bd522bd
+	fromColumn: fact_purchase_line.'ID товара'
+	toColumn: dim_product.'ID товара'
+
+relationship bdd0ef2a-d779-5f59-aea4-412e657e4c71
+	fromColumn: fact_purchase_line.'ID склада'
+	toColumn: dim_warehouse.'ID склада'
+
+relationship bc7b2eb5-154e-5f58-83a5-154ccec5f521
+	fromColumn: fact_payment_out.'Дата платежа'
+	toColumn: dim_date.Дата
+
+relationship ea80b38d-9aba-5cbc-835b-b6ee4a5b88e1
+	fromColumn: fact_payment_out.'ID поставщика'
+	toColumn: dim_supplier.'ID поставщика'
+
+relationship b8720638-5df0-5585-a585-f800c442c451
+	fromColumn: fact_sales_plan.'Месяц плана'
+	toColumn: dim_date.Дата
+
+relationship 4f94e1c2-6398-5c0f-8189-bc180b5d846e
+	fromColumn: fact_sales_plan.'ID менеджера'
+	toColumn: dim_manager.'ID менеджера'
+
+relationship 4f68f1c2-edbb-50d3-8236-9f2f04c45648
+	fromColumn: fact_sales_plan.'ID группы'
+	toColumn: dim_product_group.'ID группы'
+
+relationship a1fb11f2-daf7-5a5b-9841-d037b823a0ca
+	fromColumn: dim_contract.'ID клиента'
+	toColumn: dim_customer.'ID клиента'
+
+relationship 98d9c1e9-58bb-5453-a78c-40826fabed2c
+	fromColumn: dim_contract.'ID сезона'
+	toColumn: dim_season.'ID сезона'
+
+relationship 4272b5a1-4977-59ea-829e-58d8374d647c
+	fromColumn: fact_supplier_order_line.'Дата заказа'
+	toColumn: dim_date.Дата
+
+relationship c5b1329e-7f80-50d2-baf3-3d876e5b0524
+	fromColumn: fact_supplier_order_line.'ID поставщика'
+	toColumn: dim_supplier.'ID поставщика'
+
+relationship 22f3d134-31ae-5ea5-afa2-2c276c6994e9
+	fromColumn: fact_supplier_order_line.'ID товара'
+	toColumn: dim_product.'ID товара'
+
+relationship 4db8e9e6-e5ae-5a3e-8cbf-39ae4d9dbc37
+	fromColumn: fact_supplier_order_line.'ID склада'
+	toColumn: dim_warehouse.'ID склада'
+
+relationship fd269f95-0005-569d-af9a-8d249af0d7bb
+	fromColumn: fact_supply_trace.'ID договора'
+	toColumn: dim_contract.'ID договора'
+
+relationship f0128856-9448-58d9-982f-7a837c46d69f
+	fromColumn: dim_customer.'ID менеджера'
+	toColumn: dim_manager.'ID менеджера'
+
+relationship 2bf25c43-5757-5c41-a8ea-be54d31a77f6
+	fromColumn: dim_manager.'ID подразделения'
+	toColumn: dim_division.'ID подразделения'
+
+relationship 486ce93f-77fa-5260-82d8-c24664652645
+	fromColumn: dim_product.'ID группы'
+	toColumn: dim_product_group.'ID группы'
+
+relationship 98c95e43-695b-5dc6-b41f-23942264dfe1
+	fromColumn: dim_product.'ID производителя'
+	toColumn: dim_manufacturer.'ID производителя'
+
+relationship AutoDetected_75976672-8911-46e8-8622-40db753c2508
+	isActive: false
+	fromColumn: fact_payment_schedule.'ID сезона'
+	toColumn: dim_season.'ID сезона'
+
+relationship AutoDetected_dbc58983-90cb-4030-959a-b69c5535eb97
+	isActive: false
+	fromColumn: fact_payment_schedule.'ID менеджера'
+	toColumn: dim_manager.'ID менеджера'
+
+relationship AutoDetected_2d9320cf-3ac9-4b54-a932-5edefd8f375f
+	isActive: false
+	fromColumn: fact_payment_schedule.'ID клиента'
+	toColumn: dim_customer.'ID клиента'
+

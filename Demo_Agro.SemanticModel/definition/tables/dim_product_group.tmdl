@@ -1,0 +1,29 @@
+table dim_product_group
+	lineageTag: e8907551-400d-5546-a97e-e12401d0340d
+
+	column 'ID группы'
+		dataType: int64
+		isHidden
+		lineageTag: ee146a6c-d9a2-5ad2-b13b-37c384514f20
+		summarizeBy: none
+		sourceColumn: ID группы
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Группа товаров'
+		dataType: string
+		lineageTag: bdf402ab-e994-5f56-9e1e-f748da351cb4
+		summarizeBy: none
+		sourceColumn: Группа товаров
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product_group = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "dim_product_group"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"group_id", "ID группы"}, {"name", "Группа товаров"}})
+				in
+				    Renamed

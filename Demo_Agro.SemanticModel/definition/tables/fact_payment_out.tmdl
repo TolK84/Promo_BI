@@ -1,0 +1,59 @@
+table fact_payment_out
+	lineageTag: 8afa9a35-aac0-59c9-bb07-90427fb031eb
+
+	column 'ID платежа'
+		dataType: int64
+		isHidden
+		lineageTag: c457e5f5-d89c-59b8-800b-76a7bbcf2e29
+		summarizeBy: none
+		sourceColumn: ID платежа
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Дата платежа'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: 93913d01-840b-5028-9a16-b9e3fd9310b4
+		summarizeBy: none
+		sourceColumn: Дата платежа
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'ID поставщика'
+		dataType: int64
+		isHidden
+		lineageTag: 6d08425f-8dd3-52ef-b433-856572261072
+		summarizeBy: none
+		sourceColumn: ID поставщика
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID закупки'
+		dataType: int64
+		isHidden
+		lineageTag: 73e4f23b-4aab-5e20-8e84-a93ebe02c0cb
+		summarizeBy: none
+		sourceColumn: ID закупки
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Сумма оплаты'
+		dataType: double
+		formatString: #,0
+		lineageTag: f2e1dd86-6215-55ca-9f2e-12af90209519
+		summarizeBy: sum
+		sourceColumn: Сумма оплаты
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_payment_out = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "fact_payment_out"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"payment_id", "ID платежа"}, {"payment_date", "Дата платежа"}, {"supplier_id", "ID поставщика"}, {"purchase_id", "ID закупки"}, {"amount", "Сумма оплаты"}})
+				in
+				    Renamed

@@ -1,0 +1,71 @@
+table dim_product
+	lineageTag: 16ecac42-338c-51b7-821e-4d52e0fb68ca
+
+	column 'ID товара'
+		dataType: int64
+		isHidden
+		lineageTag: 25ed5a02-0e19-5682-91f1-1f3b1312c6c5
+		summarizeBy: none
+		sourceColumn: ID товара
+
+		annotation SummarizationSetBy = Automatic
+
+	column Артикул
+		dataType: string
+		lineageTag: 0cc40c96-b7cc-5ad6-a701-11ceabf967a8
+		summarizeBy: none
+		sourceColumn: Артикул
+
+		annotation SummarizationSetBy = Automatic
+
+	column Товар
+		dataType: string
+		lineageTag: f1b77c5a-dc7f-581c-b98b-f3b23986affd
+		summarizeBy: none
+		sourceColumn: Товар
+
+		annotation SummarizationSetBy = Automatic
+
+	column Фасовка
+		dataType: string
+		lineageTag: 92a80076-6298-5e0e-b15a-c6571728467b
+		summarizeBy: none
+		sourceColumn: Фасовка
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID группы'
+		dataType: int64
+		isHidden
+		lineageTag: 640d0f28-0357-50d1-b42d-76fd120912e1
+		summarizeBy: none
+		sourceColumn: ID группы
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID производителя'
+		dataType: int64
+		isHidden
+		lineageTag: 89baaec8-8972-5d01-9bb5-a51ff3a828fe
+		summarizeBy: none
+		sourceColumn: ID производителя
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ед. изм.'
+		dataType: string
+		lineageTag: 4f2a9752-8815-5a67-bec6-1e25a1039d22
+		summarizeBy: none
+		sourceColumn: Ед. изм.
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "dim_product"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"product_id", "ID товара"}, {"sku", "Артикул"}, {"name", "Товар"}, {"pack", "Фасовка"}, {"group_id", "ID группы"}, {"manufacturer_id", "ID производителя"}, {"unit", "Ед. изм."}})
+				in
+				    Renamed

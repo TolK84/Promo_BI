@@ -1,0 +1,140 @@
+table fact_sales_line
+	lineageTag: 6bf8cd68-2520-5fea-83bd-4b9af38ab7e2
+
+	column 'ID строки продажи'
+		dataType: int64
+		isHidden
+		lineageTag: d49b2416-d4b3-5593-b0b7-685f4ddcdf86
+		summarizeBy: none
+		sourceColumn: ID строки продажи
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID продажи'
+		dataType: int64
+		isHidden
+		lineageTag: ba473bca-aab0-590f-b1b3-fa4e30087f03
+		summarizeBy: none
+		sourceColumn: ID продажи
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Дата продажи'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: 5647879b-ade6-5883-ab43-05bd1c37673d
+		summarizeBy: none
+		sourceColumn: Дата продажи
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'ID строки заказа'
+		dataType: int64
+		isHidden
+		lineageTag: 1863a348-2aa5-5872-9d3d-370efeaa1ca0
+		summarizeBy: none
+		sourceColumn: ID строки заказа
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID заказа'
+		dataType: int64
+		isHidden
+		lineageTag: 90f97f93-a1d9-5c8d-885a-82a4359f9d62
+		summarizeBy: none
+		sourceColumn: ID заказа
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID договора'
+		dataType: int64
+		isHidden
+		lineageTag: 078e2d15-a5e2-5179-8a61-b6d52ad0bfce
+		summarizeBy: none
+		sourceColumn: ID договора
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID клиента'
+		dataType: int64
+		isHidden
+		lineageTag: b7a58702-f9e0-52c5-a3d1-dedf8d292276
+		summarizeBy: none
+		sourceColumn: ID клиента
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID менеджера'
+		dataType: int64
+		isHidden
+		lineageTag: 5dbd6fbc-d399-51db-a152-62477750deed
+		summarizeBy: none
+		sourceColumn: ID менеджера
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID сезона'
+		dataType: int64
+		isHidden
+		lineageTag: 94c43510-56e1-5e64-9ccf-0f77790fc16f
+		summarizeBy: none
+		sourceColumn: ID сезона
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID товара'
+		dataType: int64
+		isHidden
+		lineageTag: 005ea847-93e1-5a35-8326-d11913ff752a
+		summarizeBy: none
+		sourceColumn: ID товара
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID склада'
+		dataType: int64
+		isHidden
+		lineageTag: 779da4b2-35b0-5888-983e-9371c2fa6de5
+		summarizeBy: none
+		sourceColumn: ID склада
+
+		annotation SummarizationSetBy = Automatic
+
+	column Количество
+		dataType: double
+		formatString: #,0
+		lineageTag: d6b17ba3-7475-522d-ae81-bbec6a2b5dd6
+		summarizeBy: sum
+		sourceColumn: Количество
+
+		annotation SummarizationSetBy = Automatic
+
+	column Сумма
+		dataType: double
+		formatString: #,0
+		lineageTag: aae380d1-a313-5f42-adab-69c1bb5a787b
+		summarizeBy: sum
+		sourceColumn: Сумма
+
+		annotation SummarizationSetBy = Automatic
+
+	column Себестоимость
+		dataType: double
+		formatString: #,0
+		lineageTag: 18321b5d-b580-523e-a1cd-7e4cc5ce3ee4
+		summarizeBy: sum
+		sourceColumn: Себестоимость
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_sales_line = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "fact_sales_line"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"sale_line_id", "ID строки продажи"}, {"sale_id", "ID продажи"}, {"sale_date", "Дата продажи"}, {"order_line_id", "ID строки заказа"}, {"order_id", "ID заказа"}, {"contract_id", "ID договора"}, {"customer_id", "ID клиента"}, {"manager_id", "ID менеджера"}, {"season_id", "ID сезона"}, {"product_id", "ID товара"}, {"warehouse_id", "ID склада"}, {"qty", "Количество"}, {"amount", "Сумма"}, {"cost_amount", "Себестоимость"}})
+				in
+				    Renamed

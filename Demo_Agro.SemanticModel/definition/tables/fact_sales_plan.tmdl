@@ -1,0 +1,68 @@
+table fact_sales_plan
+	lineageTag: 3cf01b2d-5568-5ff8-8ff0-a8e06779a483
+
+	column 'Месяц плана'
+		dataType: dateTime
+		formatString: mmm yyyy
+		lineageTag: d9d8bdf1-4104-5758-80a1-33f7f506afd9
+		summarizeBy: none
+		sourceColumn: Месяц плана
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'ID менеджера'
+		dataType: int64
+		isHidden
+		lineageTag: c0eb05af-024a-50d4-ad51-a53ed214fbad
+		summarizeBy: none
+		sourceColumn: ID менеджера
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID подразделения'
+		dataType: int64
+		isHidden
+		lineageTag: 7afb53b2-bec8-5c19-be01-19241d78df03
+		summarizeBy: none
+		sourceColumn: ID подразделения
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID группы'
+		dataType: int64
+		isHidden
+		lineageTag: a94a6437-d6d8-5d8c-ac3e-78d0ff6b4608
+		summarizeBy: none
+		sourceColumn: ID группы
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Плановая сумма'
+		dataType: double
+		formatString: #,0
+		lineageTag: 521e592c-c958-5777-bdce-f3c89cddf5e2
+		summarizeBy: sum
+		sourceColumn: Плановая сумма
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Плановое кол-во'
+		dataType: double
+		formatString: #,0
+		lineageTag: c60720c5-7c57-54e3-b525-9fc9697380ba
+		summarizeBy: sum
+		sourceColumn: Плановое кол-во
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_sales_plan = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "fact_sales_plan"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"plan_month", "Месяц плана"}, {"manager_id", "ID менеджера"}, {"division_id", "ID подразделения"}, {"product_group_id", "ID группы"}, {"plan_amount", "Плановая сумма"}, {"plan_qty", "Плановое кол-во"}})
+				in
+				    Renamed

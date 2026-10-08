@@ -1,0 +1,29 @@
+table dim_warehouse
+	lineageTag: ddb1bcdb-6250-5c50-9b74-db4c50c1952a
+
+	column 'ID склада'
+		dataType: int64
+		isHidden
+		lineageTag: dcdb5eba-fadb-53eb-9c96-dec0e762c5a5
+		summarizeBy: none
+		sourceColumn: ID склада
+
+		annotation SummarizationSetBy = Automatic
+
+	column Склад
+		dataType: string
+		lineageTag: ebbd82a3-ce81-5ba6-aaca-a57418143361
+		summarizeBy: none
+		sourceColumn: Склад
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_warehouse = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "dim_warehouse"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"warehouse_id", "ID склада"}, {"name", "Склад"}})
+				in
+				    Renamed

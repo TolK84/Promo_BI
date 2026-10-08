@@ -1,0 +1,122 @@
+table fact_supplier_order_line
+	lineageTag: e1e42aba-c9a2-5b10-9013-3ef97f268a83
+
+	column 'ID строки заказа поставщику'
+		dataType: int64
+		isHidden
+		lineageTag: c4870df6-50a5-5db6-b851-09964a429d4a
+		summarizeBy: none
+		sourceColumn: ID строки заказа поставщику
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID заказа поставщику'
+		dataType: int64
+		isHidden
+		lineageTag: 84f0da26-bb01-5021-b326-f5e1a24c49f6
+		summarizeBy: none
+		sourceColumn: ID заказа поставщику
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Номер заказа поставщику'
+		dataType: string
+		lineageTag: ccf9b5d8-78c4-5a48-a576-b05573a69978
+		summarizeBy: none
+		sourceColumn: Номер заказа поставщику
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Дата заказа'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: b29601eb-0516-5923-b881-e4f376323375
+		summarizeBy: none
+		sourceColumn: Дата заказа
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ожидаемая дата поставки'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: 24a720b0-d2d0-5a60-b25b-23c0275904c4
+		summarizeBy: none
+		sourceColumn: Ожидаемая дата поставки
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'ID поставщика'
+		dataType: int64
+		isHidden
+		lineageTag: 7cfa98eb-3360-55b0-bdc2-b6b3951c7f03
+		summarizeBy: none
+		sourceColumn: ID поставщика
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID товара'
+		dataType: int64
+		isHidden
+		lineageTag: a426a253-8d27-573c-8c11-9300f154ad42
+		summarizeBy: none
+		sourceColumn: ID товара
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID склада'
+		dataType: int64
+		isHidden
+		lineageTag: c22a02cf-bba9-5e5b-8ed0-2c0c64896d2e
+		summarizeBy: none
+		sourceColumn: ID склада
+
+		annotation SummarizationSetBy = Automatic
+
+	column Количество
+		dataType: double
+		formatString: #,0
+		lineageTag: 8ce64509-3b67-5dd7-b680-14d0866c5aed
+		summarizeBy: sum
+		sourceColumn: Количество
+
+		annotation SummarizationSetBy = Automatic
+
+	column Цена
+		dataType: double
+		formatString: #,0
+		lineageTag: 52067a26-4660-5e01-943a-d3835a4c54e3
+		summarizeBy: none
+		sourceColumn: Цена
+
+		annotation SummarizationSetBy = Automatic
+
+	column Сумма
+		dataType: double
+		formatString: #,0
+		lineageTag: 6229d386-ee77-5b57-9910-1c8d97fb47fd
+		summarizeBy: sum
+		sourceColumn: Сумма
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Статус заказа поставщику'
+		dataType: string
+		lineageTag: d540baba-bdaf-5219-8b62-e4db8c548c2b
+		summarizeBy: none
+		sourceColumn: Статус заказа поставщику
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_supplier_order_line = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "fact_supplier_order_line"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"supplier_order_line_id", "ID строки заказа поставщику"}, {"supplier_order_id", "ID заказа поставщику"}, {"number", "Номер заказа поставщику"}, {"order_date", "Дата заказа"}, {"expected_date", "Ожидаемая дата поставки"}, {"supplier_id", "ID поставщика"}, {"product_id", "ID товара"}, {"warehouse_id", "ID склада"}, {"qty", "Количество"}, {"price", "Цена"}, {"amount", "Сумма"}, {"status", "Статус заказа поставщику"}})
+				in
+				    Renamed

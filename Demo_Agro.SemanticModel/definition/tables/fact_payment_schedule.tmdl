@@ -1,0 +1,162 @@
+table fact_payment_schedule
+	lineageTag: 13bbefc8-2432-557e-9001-d27a60d75bbe
+
+	column 'ID договора'
+		dataType: int64
+		isHidden
+		lineageTag: b88ad19d-f65b-50ad-8b28-5c482dd029b6
+		summarizeBy: none
+		sourceColumn: ID договора
+
+		annotation SummarizationSetBy = Automatic
+
+	column '№ этапа'
+		dataType: int64
+		formatString: 0
+		lineageTag: a6428645-6b11-5d99-84a5-45501408a514
+		summarizeBy: sum
+		sourceColumn: № этапа
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Срок оплаты'
+		dataType: dateTime
+		formatString: dd.mm.yyyy
+		lineageTag: 66246e0e-a506-50d2-a1ca-f82d420c4826
+		summarizeBy: none
+		sourceColumn: Срок оплаты
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Вид платежа'
+		dataType: string
+		lineageTag: 429af644-7de9-5e29-8fe5-ed72a91760ac
+		summarizeBy: none
+		sourceColumn: Вид платежа
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Доля этапа, %'
+		dataType: double
+		formatString: 0.0
+		lineageTag: b1e6b753-e6f4-512a-a0c7-3369d15cfd7d
+		summarizeBy: sum
+		sourceColumn: Доля этапа, %
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Плановая сумма'
+		dataType: double
+		formatString: #,0
+		lineageTag: 5a699ec9-463d-50c8-9141-3e18ef017603
+		summarizeBy: sum
+		sourceColumn: Плановая сумма
+
+		annotation SummarizationSetBy = Automatic
+
+	column Оплачено
+		dataType: double
+		formatString: #,0
+		lineageTag: a217cc3d-dd67-5803-b6fd-1650679e3420
+		summarizeBy: sum
+		sourceColumn: Оплачено
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Не оплачено'
+		dataType: double
+		formatString: #,0
+		lineageTag: 67b10243-1122-5d43-a196-6976dd819c1e
+		summarizeBy: sum
+		sourceColumn: Не оплачено
+
+		annotation SummarizationSetBy = Automatic
+
+	column Просрочено
+		dataType: double
+		formatString: #,0
+		lineageTag: abbc31bb-5b64-57d3-9322-14e8c70d62b9
+		summarizeBy: sum
+		sourceColumn: Просрочено
+
+		annotation SummarizationSetBy = Automatic
+
+	column Год
+		dataType: int64
+		formatString: 0
+		lineageTag: e219eaa8-e81b-40cf-acdb-a926c0b5de25
+		summarizeBy: sum
+		sourceColumn: Год
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID клиента'
+		dataType: int64
+		formatString: 0
+		lineageTag: b84c84ff-4669-48d4-b42a-7f018a14c8c8
+		summarizeBy: sum
+		sourceColumn: ID клиента
+
+		annotation SummarizationSetBy = Automatic
+
+	column Клиент
+		dataType: string
+		lineageTag: 46455bb6-26fd-49ed-84f9-7ad73047fe8f
+		summarizeBy: none
+		sourceColumn: Клиент
+
+		annotation SummarizationSetBy = Automatic
+
+	column Регион
+		dataType: string
+		lineageTag: d7d6c61b-230b-4779-97ba-f416041e505c
+		summarizeBy: none
+		sourceColumn: Регион
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID менеджера'
+		dataType: int64
+		formatString: 0
+		lineageTag: 68a447c3-c870-4f2f-b478-66206e18f08c
+		summarizeBy: sum
+		sourceColumn: ID менеджера
+
+		annotation SummarizationSetBy = Automatic
+
+	column Менеджер
+		dataType: string
+		lineageTag: 2424f456-6043-4d13-970a-0f3c319f5332
+		summarizeBy: none
+		sourceColumn: Менеджер
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID сезона'
+		dataType: int64
+		formatString: 0
+		lineageTag: e9ca3b95-f45f-45be-9bf6-7f75ba901db6
+		summarizeBy: sum
+		sourceColumn: ID сезона
+
+		annotation SummarizationSetBy = Automatic
+
+	column Сезон
+		dataType: string
+		lineageTag: be9d2ff2-3bcf-4544-a61f-acdb93a4e00f
+		summarizeBy: none
+		sourceColumn: Сезон
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_payment_schedule = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database(DbServer, DbName),
+				    Data = Source{[Schema = "public", Item = "v_payment_schedule_status"]}[Data],
+				    Renamed = Table.RenameColumns(Data, {{"contract_id", "ID договора"}, {"stage_no", "№ этапа"}, {"due_date", "Срок оплаты"}, {"kind", "Вид платежа"}, {"percent", "Доля этапа, %"}, {"plan_amount", "Плановая сумма"}, {"paid_amount", "Оплачено"}, {"unpaid_amount", "Не оплачено"}, {"overdue_amount", "Просрочено"}, {"year", "Год"}, {"customer_id", "ID клиента"}, {"customer_name", "Клиент"}, {"region", "Регион"}, {"manager_id", "ID менеджера"}, {"manager_name", "Менеджер"}, {"season_id", "ID сезона"}, {"season_name", "Сезон"}})
+				in
+				    Renamed

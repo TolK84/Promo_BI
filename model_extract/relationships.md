@@ -1,0 +1,63 @@
+Document_ПриобретениеТоваровУслуг_Товары.Номенклатура_Key -> Catalog_Номенклатура.Ref_Key
+Document_РеализацияТоваровУслуг_Товары.Номенклатура_Key -> Catalog_Номенклатура.Ref_Key
+Document_РеализацияТоваровУслуг_Товары.Ref_Key -> Document_РеализацияТоваровУслуг.Ref_Key
+Document_РеализацияТоваровУслуг.Организация_Key -> Catalog_Организации.Ref_Key
+Document_ПриобретениеТоваровУслуг.Организация_Key -> Catalog_Организации.Ref_Key
+Document_РеализацияТоваровУслуг.Менеджер_Key -> Catalog_ФизическиеЛица.Ref_Key
+Catalog_Номенклатура.ВидНоменклатуры_Key -> Catalog_ВидыНоменклатуры.Ref_Key
+Document_ЗаказКлиента_Товары.Ref_Key -> Document_ЗаказКлиента.Ref_Key [bothDirections]
+AccumulationRegister_ПланыПродаж.Номенклатура_Key -> Catalog_Номенклатура.Ref_Key
+Document_РеализацияТоваровУслуг_Товары.Склад_Key -> Catalog_Склады.Ref_Key
+Document_ЗаказКлиента.Договор_Key -> Catalog_ДоговорыКонтрагентов.Ref_Key [bothDirections]
+Catalog_ДоговорыКонтрагентов.Партнер_Key -> Catalog_Партнеры.Ref_Key
+Catalog_ДоговорыКонтрагентов.Менеджер_Key -> Catalog_Пользователи.Ref_Key
+Document_ЗаказКлиента_Товары.Номенклатура_Key -> Catalog_Номенклатура.Ref_Key
+AccumulationRegister_РасчетыСКлиентами.ЗаказКлиента -> Catalog_ДоговорыКонтрагентов.Ref_Key
+Catalog_Пользователи.Подразделение_Key -> Catalog_СтруктураПредприятия.Ref_Key
+Catalog_Номенклатура.АридаГруппаПрепаратов_Key -> Catalog_АридаГруппыПрепаратов.Ref_Key
+Catalog_Номенклатура.АридаТипКультурыИПрепаратов_Key -> Catalog_АридаТипыКультурыИПрепаратов.Ref_Key
+Catalog_Номенклатура.ТоварнаяКатегория_Key -> Catalog_ТоварныеКатегории.Ref_Key
+Document_ПланПродаж.Менеджер_Key -> Catalog_Пользователи.Ref_Key
+AccumulationRegister_ПланыПродаж.Менеджер_Key -> Catalog_Пользователи.Ref_Key
+AccumulationRegister_ТоварыНаСкладах.Номенклатура_Key -> Catalog_Номенклатура.Ref_Key
+AccumulationRegister_ТоварыНаСкладах.Склад_Key -> Catalog_Склады.Ref_Key
+Catalog_Номенклатура.Производитель_Key -> Catalog_Производители.Ref_Key
+AccumulationRegister_СебестоимостьТоваров.АналитикаУчетаНоменклатуры_Key -> Catalog_КлючиАналитикиУчетаНоменклатуры.Ref_Key
+Catalog_КлючиАналитикиУчетаНоменклатуры.Склад -> Catalog_Склады.Ref_Key
+Catalog_КлючиАналитикиУчетаНоменклатуры.Номенклатура_Key -> Catalog_Номенклатура.Ref_Key
+AccumulationRegister_ПланыПродаж.Date -> Calendar.Date
+Document_ЗаказКлиента.ДатаОтгрузки -> Calendar.Date
+Document_ПланПродаж.Date -> Calendar.Date
+AccumulationRegister_ТоварыНаСкладах.Date -> Calendar.Date
+Document_ЗаказКлиента_ЭтапыГрафикаОплаты.Ref_Key -> Document_ЗаказКлиента.Ref_Key
+AccumulationRegister_ВыручкаИСебестоимостьПродаж.АналитикаУчетаНоменклатуры_Key -> Catalog_КлючиАналитикиУчетаНоменклатуры.Ref_Key
+AccumulationRegister_ВыручкаИСебестоимостьПродаж.Date -> Calendar.Date
+Catalog_КлючиАналитикиУчетаПоПартнерам.Партнер_Key -> Catalog_Партнеры.Ref_Key
+AccumulationRegister_ВыручкаИСебестоимостьПродаж.АналитикаУчетаПоПартнерам_Key -> Catalog_КлючиАналитикиУчетаПоПартнерам.Ref_Key
+AccumulationRegister_ВыручкаИСебестоимостьПродаж.СуммаВыручки -> Catalog_Пользователи.Ref_Key
+AccumulationRegister_СебестоимостьТоваров.Date -> Calendar.Date
+Document_АридаПодпишиОнлайнЭД.ДокументОснование -> Document_ЗаказКлиента.Ref_Key [bothDirections]
+Document_ПриобретениеТоваровУслуг_Товары.Ref_Key -> Document_ПриобретениеТоваровУслуг.Ref_Key
+Document_ПриобретениеТоваровУслуг.'Серии.Ref_Key' -> Catalog_СерииНоменклатуры.Ref_Key
+AccumulationRegister_ТоварыНаСкладах.Серия_Key -> Catalog_СерииНоменклатуры.Ref_Key
+Document_ЗаказПоставщику_Товары.Ref_Key -> Document_ЗаказПоставщику.Ref_Key
+Document_ПриобретениеТоваровУслуг.ЗаказПоставщику_Key -> Document_ЗаказПоставщику.Ref_Key
+Document_РеализацияТоваровУслуг.ЗаказКлиента -> Document_ЗаказКлиента.Ref_Key
+Document_ПриобретениеТоваровУслуг_Товары.Склад_Key -> Catalog_Склады.Ref_Key
+Document_ЗаказПоставщику.Договор_Key -> Catalog_ДоговорыКонтрагентов.Ref_Key
+Document_ЗаказПоставщику_Товары.Номенклатура_Key -> Catalog_Номенклатура.Ref_Key
+Document_ЗаказПоставщику.'Date.1' -> Calendar.Date
+Document_СписаниеБезналичныхДенежныхСредств_РасшифровкаПлатежа.Заказ -> Catalog_ДоговорыКонтрагентов.Ref_Key [bothDirections]
+Catalog_ДоговорыКонтрагентов.АридаСезон_Key -> Catalog_АридаСезоны.Ref_Key
+Document_ПоступлениеБезналичныхДенежныхСредств.Партнер_Key -> Catalog_Партнеры.Ref_Key
+Calendar.Date -> Axis_Calendar.'По дням' [inactive] [bothDirections]
+Document_ЗаказКлиента_АридаБонусы.ЗаказКлиента_Key -> Document_ЗаказКлиента.Ref_Key
+Document_ЗаказКлиента_АридаРеальныйВход.ЗаказКлиента_Key -> Document_ЗаказКлиента.Ref_Key
+Document_ЗаказКлиента_АридаРеальныйВход.Номенклатура_Key -> Catalog_Номенклатура.Ref_Key
+Document_ЗаказКлиента_АридаБонусы.Номенклатура_Key -> Catalog_Номенклатура.Ref_Key
+AccumulationRegister_ЗаказыКлиентов.ЗаказКлиента -> Document_ЗаказКлиента.Ref_Key
+AccumulationRegister_ТоварыКОтгрузке.ДокументОтгрузки -> Document_ЗаказКлиента.Ref_Key
+AccumulationRegister_СвободныеОстатки.Склад_Key -> Catalog_Склады.Ref_Key
+AccumulationRegister_СвободныеОстатки.Номенклатура_Key -> Catalog_Номенклатура.Ref_Key
+AccumulationRegister_ТоварыКОтгрузке.Date -> Calendar.Date [inactive]
+AccumulationRegister_СвободныеОстатки.Date -> Calendar.Date
