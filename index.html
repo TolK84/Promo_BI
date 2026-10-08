@@ -340,7 +340,6 @@ function activate(id){
     document.getElementById(t.getAttribute("aria-controls")).classList.toggle("active", on);
   });
   if(id === "t-pbi") loadPbi();
-  try { history.replaceState(null, "", id === "t-ss" ? "#superset" : "#powerbi"); } catch(e) {}
 }
 tabs.forEach(t => t.addEventListener("click", () => activate(t.id)));
 activate(location.hash === "#superset" ? "t-ss" : "t-pbi");
